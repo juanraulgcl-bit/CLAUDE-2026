@@ -106,6 +106,7 @@ footer{padding:36px 0 56px;color:var(--mut);font-size:13px}
     <li><b>Apoyo:</b> la pérgola va atornillada al muro y apoya en el perfil de unión, que recibe la mitad de su peso.</li>
     <li><b>Modelo:</b> pórtico espacial de barras (flexión, axil y torsión), pilares y dinteles empotrados.</li>
     <li><b>Límite de referencia:</b> 110 MPa (6063-T5), sin coeficientes de seguridad. Confirmar aleación y temple.</li>
+    <li>El entorno (fachada de travertino, suelo de baldosa, muro blanco y vallas) está recreado de forma esquemática a partir de fotos del patio; las cotas del patio son estimadas.</li>
     <li>El modelo 3D es esquemático: las lamas son prismas simples, no el perfil real de 224×50 de doble pared.</li>
   </ul></div></section>
 </main>
@@ -129,21 +130,21 @@ const P = (x,y,z) => new THREE.Vector3(x, z, -y);
 const stage = $('stage');
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(40, 1, .1, 100);
-cam.position.set(11, 6.5, 8.5);
+cam.position.set(11.5, 6.5, -7.5);
 const ren = new THREE.WebGLRenderer({antialias:true, alpha:true});
 ren.setPixelRatio(Math.min(devicePixelRatio, 2));
 ren.shadowMap.enabled = true;
 ren.toneMapping = THREE.ACESFilmicToneMapping;
 stage.appendChild(ren.domElement);
 const ctl = new OrbitControls(cam, ren.domElement);
-ctl.target.copy(P(2.5, DATA.D/2, 2.2)); ctl.enableDamping = true;
+ctl.target.copy(P(2.8, DATA.D/2, 1.8)); ctl.enableDamping = true;
 ctl.maxPolarAngle = Math.PI*0.49;
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f99, 1.1));
 const sun = new THREE.DirectionalLight(0xffffff, 2.2);
 sun.position.set(8, 12, 6); sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, {left:-9,right:9,top:9,bottom:-9,near:1,far:40});
+Object.assign(sun.shadow.camera, {left:-12,right:12,top:12,bottom:-12,near:1,far:60});
 scene.add(sun);
 const pm = new THREE.PMREMGenerator(ren);
 const env = new THREE.Scene();
